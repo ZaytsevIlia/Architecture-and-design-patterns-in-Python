@@ -1,3 +1,6 @@
+from iljones_framework.requests import GetRequests, PostRequests
+from quopri import decodestring
+
 
 class PageNotFound404:
     def __call__(self, request):
@@ -5,7 +8,6 @@ class PageNotFound404:
 
 
 class Framework:
-
     """Класс Framework - основа фреймворка"""
 
     def __init__(self, routes_obj, fronts_obj):
@@ -26,7 +28,22 @@ class Framework:
             view = self.routes_lst[path]
         else:
             view = PageNotFound404()
+
         request = {}
+
+        method = environ['REQUEST_METHOD']
+        request['method'] = method
+
+        if method == 'POST':
+            data = PostRequests().post_application(environ)
+            request['data'] = Framework.decode_value(data)
+            print(f'Нам пришёл post-запрос: {Framework.decode_value(data)}')
+        if method == 'GET':
+            request_params = GetRequests().get_application(environ)
+            request['request_params'] = Framework.decode_value(request_params)
+            print(f'Нам пришли GET-параметры:'
+                  f' {Framework.decode_value(request_params)}')
+
         # наполняем словарь request элементами
         # этот словарь получат все контроллеры
         # отработка паттерна front controller
@@ -36,3 +53,11 @@ class Framework:
         code, body = view(request)
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
+
+    def decode_value(data):
+        new_data = {}
+        for k, v in data.items():
+            val = bytes(v.replace('%', '=').replace("+", " "), 'UTF-8')
+            val_decode_str = decodestring(val).decode('UTF-8')
+            new_data[k] = val_decode_str
+        return new_data
