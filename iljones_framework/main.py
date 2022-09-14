@@ -1,4 +1,4 @@
-from iljones_framework.requests import GetRequests, PostRequests
+from iljones_framework.framework_requests import GetRequests, PostRequests
 from quopri import decodestring
 
 
@@ -54,6 +54,7 @@ class Framework:
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
 
+    @staticmethod
     def decode_value(data):
         new_data = {}
         for k, v in data.items():
