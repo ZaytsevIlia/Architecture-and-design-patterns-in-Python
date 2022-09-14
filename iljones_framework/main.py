@@ -1,4 +1,4 @@
-from iljones_framework.framework_requests import GetRequests, PostRequests
+from iljones_framework.framework_requests import PostRequests, GetRequests
 from quopri import decodestring
 
 
