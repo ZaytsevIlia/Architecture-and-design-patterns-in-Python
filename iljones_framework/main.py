@@ -1,13 +1,14 @@
-from iljones_framework.framework_requests import PostRequests, GetRequests
 from quopri import decodestring
+from framework_requests import PostRequests, GetRequests
 
 
 class PageNotFound404:
     def __call__(self, request):
-        return '404 PAGE Not Found'
+        return '404', '404 PAGE Not Found'
 
 
 class Framework:
+
     """Класс Framework - основа фреймворка"""
 
     def __init__(self, routes_obj, fronts_obj):
@@ -21,13 +22,6 @@ class Framework:
         # добавление закрывающего слеша
         if not path.endswith('/'):
             path = f'{path}/'
-
-        # находим нужный контроллер
-        # отработка паттерна page controller
-        if path in self.routes_lst:
-            view = self.routes_lst[path]
-        else:
-            view = PageNotFound404()
 
         request = {}
 
@@ -43,6 +37,13 @@ class Framework:
             request['request_params'] = Framework.decode_value(request_params)
             print(f'Нам пришли GET-параметры:'
                   f' {Framework.decode_value(request_params)}')
+
+        # находим нужный контроллер
+        # отработка паттерна page controller
+        if path in self.routes_lst:
+            view = self.routes_lst[path]
+        else:
+            view = PageNotFound404()
 
         # наполняем словарь request элементами
         # этот словарь получат все контроллеры

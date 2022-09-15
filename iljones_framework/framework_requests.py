@@ -1,6 +1,6 @@
 # Получение данных из get-запроса
-
 class GetRequests:
+
     @staticmethod
     def parse_input_data(data: str):
         result = {}
@@ -30,6 +30,7 @@ class GetRequests:
 # Получение данных из post-запроса
 
 class PostRequests:
+
     @staticmethod
     def parse_input_data(data: str):
         result = {}
