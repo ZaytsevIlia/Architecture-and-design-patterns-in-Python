@@ -1,34 +1,16 @@
 <!DOCTYPE HTML>
 <html>
 
-<head>
-  <title>night_sky - Каталог (технические работы)</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="style/style.css" />
-</head>
+<h1>Race Taxi - Каталог</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
 
 <body>
   <div id="main">
-    <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-          <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="/">night<span class="logo_colour">_sky</span></a></h1>
-          <h2>Simple. Contemporary. Website Template.</h2>
-        </div>
-      </div>
-      <div id="menubar">
-        <ul id="menu">
-          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li><a href="/">Главная</a></li>
-          <li><a href="about">Информация</a></li>
-          <li class="selected"><a href="another_page">Каталог (технические работы)</a></li>
-          <li><a href="contact">Контакты</a></li>
-        </ul>
-      </div>
-    </div>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
     <div id="site_content">
       <div class="sidebar">
         <h1>Latest News</h1>
@@ -55,10 +37,9 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui.</p>
       </div>
     </div>
-    <div id="footer">
-      <p><a href="/">Главная</a> | <a href="about">Информация</a> | <a href="another_page">Каталог (технические работы)</a> | <a href="contact">Контакты</a></p>
-      <p>Copyright &copy; iljones_framework </p>
-    </div>
+    {% block body %}
+    {% include "block_footer.html" %}
+    {% endblock %}
   </div>
 </body>
 </html>

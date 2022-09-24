@@ -1,34 +1,15 @@
 <!DOCTYPE HTML>
 <html>
-
-<head>
-  <title>night_sky Главная</title>
-  <meta name="description" content="website description" />
-  <meta name="keywords" content="website keywords, website keywords" />
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="style/style.css" />
-</head>
+<h1>Race Taxi</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
 
 <body>
   <div id="main">
-    <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-          <!-- class="logo_colour", allows you to change the colour of the text -->
-          <h1><a href="/">night<span class="logo_colour">_sky</span></a></h1>
-          <h2>Simple. Contemporary. Website Template.</h2>
-        </div>
-      </div>
-      <div id="menubar">
-        <ul id="menu">
-          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
-          <li class="selected"><a href="/">Главная</a></li>
-          <li><a href="about">Информация</a></li>
-          <li><a href="another_page">Каталог (технические работы)</a></li>
-          <li><a href="contact">Контакты</a></li>
-        </ul>
-      </div>
-    </div>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
     <div id="site_content">
       <div class="sidebar">
         <h1>Latest News</h1>
@@ -54,10 +35,9 @@
         <h1>Welcome to website about iljones_framework</h1>
       </div>
     </div>
-    <div id="footer">
-      <p><a href="/">Главная</a> | <a href="about">Информация</a> | <a href="another_page">Каталог (технические работы)</a> | <a href="contact">Контакты</a></p>
-      <p>Copyright &copy; iljones_framework </p>
-    </div>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
   </div>
 </body>
 </html>
