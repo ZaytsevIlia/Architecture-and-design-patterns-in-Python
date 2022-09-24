@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<h1>Race Taxi</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
+<body>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
+    <div>
+        <a href="/choise_track/?id={{id}}">Выбрать трассу</a>
+        <br>
+        <h1>Список трасс для режима "{{name}}"</h1>
+        {% for item in objects_list %}
+        <li>
+            {{item.name}} <span><a href="/track_copy/?name={{item.name}}">Копировать</a></span>
+        </li>
+        {% endfor %}
+    </div>
+    <div>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
+    </div>
+</body>
+</html>
