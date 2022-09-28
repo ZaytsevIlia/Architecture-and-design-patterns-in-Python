@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <h1>Race Taxi</h1>
 {% block title %}
 {% include "block_title.html" %}
@@ -12,28 +12,46 @@
     {% endblock %}
     <div id="site_content">
       <div class="sidebar">
-        <h1>Latest News</h1>
-        <h4>New Website Launched</h4>
-        <h5>January 1st, 2010</h5>
-        <p>2010 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
-        <h1>Useful Links</h1>
+        <h1>Приветствуем Вас на сайте гоночного такси</h1>
+        <h4> </h4>
+        <p>Тут Вы можете приобрести себе или в подарок другу поезду с профессиональным пилотом на настоящей гоночной трассе.</p>
+        <p>Также у нас есть курсы вождения на треке и обучение дрифту!!!</p>
+        <h4>Трассы на которых можно прокатиться:</h4>
         <ul>
-          <li><a href="#">link 1</a></li>
-          <li><a href="#">link 2</a></li>
-          <li><a href="#">link 3</a></li>
-          <li><a href="#">link 4</a></li>
+          <li>Москва<a href="#">"Moscow Raceway"</a></li>
+          <li>Санкт-Петербург<a href="#">"Игора Драйв"</a></li>
+          <li>Сочи<a href="#">"Сочи Автодром"</a></li>
+          <li>Казань<a href="#">"Казань Ринг"</a></li>
+          <li>Грозный<a href="#">"Крепость Грозная"</a></li>
         </ul>
-        <h1>Search</h1>
-        <form method="post" action="#" id="search_form">
-          <p>
-            <input class="search" type="text" name="search_field" value="Enter keywords....." />
-            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-          </p>
-        </form>
+
+        <h2>Выбор режима</h2>
+        <div>
+            <a href="/choise_mode/">Выберите режим</a>
+        </div>
+        <div>
+            <h2>Список режимов</h2>
+            {% for item in objects_list %}
+            <li>
+                {{item.name}} <span>Количество трасс: {{item.tracks_count()}}</span>
+                <a href="/track_list/?id={{item.id}}">Показать трассы</a>
+            </li>
+            {% endfor %}
+        </div>
+
+
+
+<!--        <h1>Search</h1>-->
+<!--        <form method="post" action="#" id="search_form">-->
+<!--          <p>-->
+<!--            <input class="search" type="text" name="search_field" value="Enter keywords....." />-->
+<!--            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />-->
+<!--          </p>-->
+<!--        </form>-->
       </div>
-      <div id="content">
-        <h1>Welcome to website about iljones_framework</h1>
-      </div>
+<!--      <div id="content">-->
+<!--        <h1>Welcome to website about iljones_framework</h1>-->
+<!--      </div>-->
     </div>
     {% block footer %}
     {% include "block_footer.html" %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<h1>Race Taxi</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
+<body>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
+    <h1>Создание режима</h1>
+    <form method="post">
+        <input type="text" name="name" placeholder="Выбор режима">
+        <button type="submit">Выбрать и вернуться на главную</button>
+    </form>
+    <div>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
+    </div>
+</body>
+</html>

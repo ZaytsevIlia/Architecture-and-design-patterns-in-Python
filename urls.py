@@ -1,5 +1,5 @@
 from datetime import date
-from views import Index, About, AnotherPage, Contact
+from views import Index, About, AnotherPage, Contact, CreateMode, CreateTrack, ModeList, TrackList, CopyTrack
 
 
 # front controller
@@ -18,4 +18,9 @@ routes = {
     '/about/': About(),
     '/another_page/': AnotherPage(),
     '/contact/': Contact(),
+    '/choise_mode/': CreateMode(),
+    '/choise_track/': CreateTrack(),
+    '/mode_list/': ModeList(),
+    '/track_list/': TrackList(),
+    '/track_copy/': CopyTrack(),
 }
