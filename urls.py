@@ -1,5 +1,4 @@
 from datetime import date
-from views import Index, About, AnotherPage, Contact, CreateMode, CreateTrack, ModeList, TrackList, CopyTrack
 
 
 # front controller
@@ -12,15 +11,3 @@ def other_front(request):
 
 
 fronts = [secret_front, other_front]
-
-routes = {
-    '/': Index(),
-    '/about/': About(),
-    '/another_page/': AnotherPage(),
-    '/contact/': Contact(),
-    '/choise_mode/': CreateMode(),
-    '/choise_track/': CreateTrack(),
-    '/mode_list/': ModeList(),
-    '/track_list/': TrackList(),
-    '/track_copy/': CopyTrack(),
-}
