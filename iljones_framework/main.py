@@ -1,3 +1,4 @@
+from pprint import pprint
 from quopri import decodestring
 from framework_requests import PostRequests, GetRequests
 
@@ -8,7 +9,6 @@ class PageNotFound404:
 
 
 class Framework:
-
     """Класс Framework - основа фреймворка"""
 
     def __init__(self, routes_obj, fronts_obj):
@@ -63,3 +63,32 @@ class Framework:
             val_decode_str = decodestring(val).decode('utf-8')
             new_data[k] = val_decode_str
         return new_data
+
+
+# Логирующий WSGI-application.
+# Первый — логирующий (такой же, как основной,
+# только для каждого запроса выводит информацию
+# (тип запроса и параметры) в консоль.
+class InfoApplication(Framework):
+    def __init__(self, routes_obj, fronts_obj):
+        self.application = Framework(routes_obj, fronts_obj)
+        super().__init__(routes_obj, fronts_obj)
+
+    def __call__(self, env, start_response):
+        print('----------Info mode----------')
+        pprint(env)
+        return self.application(env, start_response)
+
+
+# Фейковый WSGI-application.
+# На все запросы пользователя отвечает:
+# 200 OK, Hello from Fake.
+
+class FakeApplication(Framework):
+    def __init__(self, routes_obj, fronts_obj):
+        self.application = Framework(routes_obj, fronts_obj)
+        super().__init__(routes_obj, fronts_obj)
+
+    def __call__(self, env, start_response):
+        start_response('200 OK', [('Content-Type', 'text/html')])
+        return [b'Hello from Fake']
