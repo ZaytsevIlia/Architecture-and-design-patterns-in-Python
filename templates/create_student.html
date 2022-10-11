@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1>Race Taxi - Новый обучающийся</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
+<body>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
+	<div>
+		<li>
+			<a href="/student_list/">Список обучающихся</a>
+		</li>
+	</div>
+    <div>
+        <h1>Создание обучающего</h1>
+        <form method="post">
+            <input type="text" name="name" placeholder="Имя">
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
+</body>
+</html>

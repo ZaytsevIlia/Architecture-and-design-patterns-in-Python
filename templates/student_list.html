@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1>Race Taxi - Список обучающихся</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
+<body>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
+	<div>
+		<li>
+			<a href="/create_student/">Создание обучающего</a>
+		</li>
+		<li>
+			<a href="/add_student/">Добавить обучающего на трассу</a>
+		</li>
+	</div>
+    <h2>Список обучающихся</h2>
+    <div>
+        {% for item in objects_list %}
+        <li>
+            {{item.name}}
+            {% for track in item.tracks %}
+                {{track.name}}
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </div>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
+</body>
+</html>
