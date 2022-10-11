@@ -1,9 +1,11 @@
 from copy import deepcopy
 from quopri import decodestring
+from behavioral_patterns import Subject, FileWriter
 
 
 class User:
-    pass
+    def __init__(self, name):
+        self.name = name
 
 
 class Driver(User):
@@ -11,7 +13,9 @@ class Driver(User):
 
 
 class Student(User):
-    pass
+    def __init__(self, name):
+        self.tracks = []
+        super().__init__(name)
 
 
 class UserFactory:
@@ -23,8 +27,8 @@ class UserFactory:
     # Порождающий патерн
     # Фабричный метод
     @classmethod
-    def create(cls, type_):
-        return cls.types[type_]()
+    def create(cls, type_, name):
+        return cls.types[type_](name)
 
 
 class TrackPrototype:
@@ -32,11 +36,21 @@ class TrackPrototype:
         return deepcopy(self)
 
 
-class Track(TrackPrototype):
+class Track(TrackPrototype, Subject):
     def __init__(self, name, mode):
         self.name = name
         self.mode = mode
         self.mode.tracks.append(self)
+        self.students = []
+        super().__init__()
+
+    def __getitem__(self, item):
+        return self.students[item]
+
+    def add_student(self, student: Student):
+        self.students.append(student)
+        student.tracks.append(self)
+        self.notify()
 
 
 class MoscowTrack(Track):
@@ -100,8 +114,8 @@ class Engine:
         self.tracks = []
 
     @staticmethod
-    def create_user(type_):
-        return UserFactory.create(type_)
+    def create_user(type_, name):
+        return UserFactory.create(type_, name)
 
     @staticmethod
     def create_track(type_, name, mode):
@@ -129,6 +143,11 @@ class Engine:
         val_b = bytes(val.replace('%', '=').replace('+', ' '), 'utf-8')
         val_decode_str = decodestring(val_b)
         return val_decode_str.decode('utf-8')
+
+    def get_student(self, name) -> Student:
+        for item in self.students:
+            if item.name == name:
+                return item
 
 
 # порождающий паттерн Синглтон

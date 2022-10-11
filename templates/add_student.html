@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<h1>Race Taxi - Новый обучающийся</h1>
+{% block title %}
+{% include "block_title.html" %}
+{% endblock %}
+<body>
+    {% block menu %}
+    {% include "block_menu.html" %}
+    {% endblock %}
+    <div>
+        <li>
+            <a href="/student_list/">Список обучающихся</a>
+        </li>
+        <li>
+            <a href="/create_student/">Создание обучающего</a>
+        </li>
+    </div>
+    <h1>Добавить обучающего на трассу</h1>
+    <form method="post">
+        <select size="3" name="track_name">
+            {% for item in tracks %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <select size="3" name="student_name">
+            {% for item in students %}
+            <option value="{{item.name}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Добавить</button>
+    </form>
+    {% block footer %}
+    {% include "block_footer.html" %}
+    {% endblock %}
+</body>
+</html>

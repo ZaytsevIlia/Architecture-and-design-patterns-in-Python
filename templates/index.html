@@ -6,56 +6,67 @@
 {% endblock %}
 
 <body>
-  <div id="main">
+<div id="main">
     {% block menu %}
     {% include "block_menu.html" %}
     {% endblock %}
     <div id="site_content">
-      <div class="sidebar">
-        <h1>Приветствуем Вас на сайте гоночного такси</h1>
-        <h4> </h4>
-        <p>Тут Вы можете приобрести себе или в подарок другу поезду с профессиональным пилотом на настоящей гоночной трассе.</p>
-        <p>Также у нас есть курсы вождения на треке и обучение дрифту!!!</p>
-        <h4>Трассы на которых можно прокатиться:</h4>
-        <ul>
-          <li>Москва<a href="#">"Moscow Raceway"</a></li>
-          <li>Санкт-Петербург<a href="#">"Игора Драйв"</a></li>
-          <li>Сочи<a href="#">"Сочи Автодром"</a></li>
-          <li>Казань<a href="#">"Казань Ринг"</a></li>
-          <li>Грозный<a href="#">"Крепость Грозная"</a></li>
-        </ul>
+        <div class="sidebar">
+            <h1>Приветствуем Вас на сайте гоночного такси</h1>
+            <h4></h4>
+            <p>Тут Вы можете приобрести себе или в подарок другу поезду с профессиональным пилотом на настоящей гоночной
+                трассе.</p>
+            <p>Также у нас есть курсы вождения на треке и обучение дрифту!!!</p>
+            <h4>Трассы на которых можно прокатиться:</h4>
+            <ul>
+                <li>Москва<a href="#">"Moscow Raceway"</a></li>
+                <li>Санкт-Петербург<a href="#">"Игора Драйв"</a></li>
+                <li>Сочи<a href="#">"Сочи Автодром"</a></li>
+                <li>Казань<a href="#">"Казань Ринг"</a></li>
+                <li>Грозный<a href="#">"Крепость Грозная"</a></li>
+            </ul>
 
-        <h2>Выбор режима</h2>
-        <div>
-            <a href="/choise_mode/">Выберите режим</a>
+            <h2>Выбор режима</h2>
+            <div>
+                <a href="/choise_mode/">Выберите режим</a>
+            </div>
+            <div>
+                <h2>Список режимов</h2>
+                {% for item in objects_list %}
+                <li>
+                    {{item.name}} <span>Количество трасс: {{item.tracks_count()}}</span>
+                    <a href="/track_list/?id={{item.id}}">Показать трассы</a>
+                </li>
+                {% endfor %}
+            </div>
+
+
+            <!--        <h1>Search</h1>-->
+            <!--        <form method="post" action="#" id="search_form">-->
+            <!--          <p>-->
+            <!--            <input class="search" type="text" name="search_field" value="Enter keywords....." />-->
+            <!--            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />-->
+            <!--          </p>-->
+            <!--        </form>-->
         </div>
-        <div>
-            <h2>Список режимов</h2>
-            {% for item in objects_list %}
-            <li>
-                {{item.name}} <span>Количество трасс: {{item.tracks_count()}}</span>
-                <a href="/track_list/?id={{item.id}}">Показать трассы</a>
-            </li>
-            {% endfor %}
-        </div>
-
-
-
-<!--        <h1>Search</h1>-->
-<!--        <form method="post" action="#" id="search_form">-->
-<!--          <p>-->
-<!--            <input class="search" type="text" name="search_field" value="Enter keywords....." />-->
-<!--            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />-->
-<!--          </p>-->
-<!--        </form>-->
-      </div>
-<!--      <div id="content">-->
-<!--        <h1>Welcome to website about iljones_framework</h1>-->
-<!--      </div>-->
+        <!--      <div id="content">-->
+        <!--        <h1>Welcome to website about iljones_framework</h1>-->
+        <!--      </div>-->
     </div>
+    <div>
+        <li>
+            <a href="/student_list/">Список обучающихся</a>
+        </li>
+        <li>
+            <a href="/create_student/">Создание обучающего</a>
+        </li>
+        <li>
+            <a href="/add_student/">Добавить обучающего на трассу</a>
+        </li>
+	</div>
     {% block footer %}
     {% include "block_footer.html" %}
     {% endblock %}
-  </div>
+</div>
 </body>
 </html>

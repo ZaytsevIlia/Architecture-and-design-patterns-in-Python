@@ -1,8 +1,11 @@
 from iljones_framework.templator import render
 from patterns.create_patterns import Engine
 from patterns.structural_patterns import AppRoute, Debug
+from patterns.behavioral_patterns import SMSNotifier, EmailNotifier, BaseSerializer, ListView, CreateView
 
 site = Engine()
+sms_notifier = SMSNotifier()
+email_notifier = EmailNotifier()
 
 routes = {}
 
@@ -73,6 +76,10 @@ class CreateTrack:
                 mode = site.find_mode_by_id(int(self.mode_id))
 
                 track = site.create_track('moscowtrack', name, mode)
+
+                track.observers.append(email_notifier)
+                track.observers.append(sms_notifier)
+
                 site.tracks.append(track)
 
             return '200 OK', render('track_list.html',
@@ -146,3 +153,47 @@ class CopyTrack:
                                     name=new_track.mode.name)
         except KeyError:
             return '200 OK', 'Не выбрано ни одной трассы'
+
+
+@AppRoute(routes=routes, url='/student_list/')
+class StudentListView(ListView):
+    queryset = site.students
+    template_name = 'student_list.html'
+
+
+@AppRoute(routes=routes, url='/create_student/')
+class StudentCreateView(CreateView):
+    template_name = 'create_student.html'
+
+    def create_obj(self, data: dict):
+        name = data['name']
+        name = site.decode_value(name)
+        new_obj = site.create_user('student', name)
+        site.students.append(new_obj)
+
+
+@AppRoute(routes=routes, url='/add_student/')
+class AddStudentByTrackCreateView(CreateView):
+    template_name = 'add_student.html'
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['tracks'] = site.tracks
+        context['students'] = site.students
+        return context
+
+    def create_obj(self, data: dict):
+        track_name = data['track_name']
+        track_name = site.decode_value(track_name)
+        track = site.get_track(track_name)
+        student_name = data['student_name']
+        student_name = site.decode_value(student_name)
+        student = site.get_student(student_name)
+        track.add_student(student)
+
+
+@AppRoute(routes=routes, url='/api/')
+class TrackApi:
+    @Debug(name='TrackApi')
+    def __call__(self, request):
+        return '200 OK', BaseSerializer(site.tracks).save()
